@@ -29,7 +29,7 @@ To do the Break-Out exercises during the tutorials and to complete all assignmen
     - Windows: the version from the NodeJS website should work. 
 - Once you have npm running (check via `npm -v`), install these packages (you can do all that from the Git-Bash):
   - Bower `npm install -g bower`
-  - Express Generator `npm install -g express`
+  - Express Generator `npm install -g express-generator`
   - Polymer-CLI `npm install -g polymer-cli`
   - Browser-Sync `npm install -g browser-sync`
   

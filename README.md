@@ -48,7 +48,12 @@ To do the Break-Out exercises during the tutorials and to complete all assignmen
 
 Everything related to the assignments goes here.
 
-**Commit your own solutions in the `solutions` sub-directories.** Read the [README](assigments/solutions/README.md) first to find out how to do this. There won't be official solutions from our side. 
+#### skeletons
+Contains code skeletons you can use to solve the tasks - these are optional and you don't have to use them, if you
+prefer to create the code from scratch (sometimes this can be easier!).
+
+#### solutions
+**Commit your own solutions in the `solutions` sub-directories.** Read the [README](https://github.com/mimuc/mmn-ws1718/tree/master/assignments/solutions) first to find out how to do this. There won't be official solutions from our side. 
 
 ### /tutorials ###
 all example code of the tutorials, break out material and other documents are here. 

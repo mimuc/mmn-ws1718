@@ -1,0 +1,151 @@
+#container {
+  width: 750px;
+  margin: auto;
+  background-color: #efefef;
+  border-radius: 10px;
+  padding: 30px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+#container #output {
+  float: left;
+  width: 450px;
+}
+#container #results .guessRow {
+  margin: 30px 0;
+  clear: both;
+}
+#container #results .guessRow .letters {
+  float: left;
+  width: 170px;
+}
+#container #results .guessRow .letters .letter {
+  width: 40px;
+  float: left;
+}
+#container #results .guessRow .dot {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px 0 0;
+  border-radius: 50%;
+  justify-content: center;
+  float: left;
+}
+#container #results .guessRow .dot.red {
+  background-color: red;
+}
+#container #results .guessRow .dot.black {
+  background-color: black;
+}
+#container #results .guessRow .dot.white {
+  background-color: white;
+  border: 2px solid black;
+  width: 38px;
+  height: 38px;
+}
+#container #formdiv {
+  float: right;
+  width: 278px;
+}
+#container #formdiv .restart {
+  float: right;
+}
+#container #formdiv #fields {
+  clear: both;
+}
+#container #formdiv #fields input {
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13pt;
+}
+#container #formdiv #fields input[type=text] {
+  width: 40px;
+  padding-left: 12px;
+}
+#container #formdiv #fields input[type=submit] {
+  width: 100px;
+  cursor: pointer;
+}
+#container #formdiv #fields input[type=submit]:hover {
+  background-color: lightblue;
+}
+#container #highscore{
+  float: right;
+  width: 278px
+}
+
+
+.clear {
+  clear: both;
+}
+.result {
+  clear: both;
+  padding-top: 20px;
+}
+@media (max-width: 700px) {
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  #container {
+    width: 100%;
+    padding: 5px;
+  }
+  #container #formdiv {
+    width: 96%;
+    clear: both;
+    float: none;
+    display: block;
+  }
+  #container #formdiv #fields {
+    display: flex;
+  }
+  #container #formdiv #fields input {
+    height: 40px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+  }
+  #container #formdiv #fields input[type=text] {
+    flex: 1;
+    justify-content: center;
+  }
+  #container #formdiv #fields input[type=submit] {
+    width: auto;
+    cursor: pointer;
+    flex: 1;
+    -moz-box-flex: 1;
+  }
+  #container #formdiv #fields input[type=submit]:hover {
+    background-color: lightblue;
+  }
+  #container #output {
+    float: none;
+    width: auto;
+  }
+  #container #results .guessRow {
+    margin: 0;
+    clear: both;
+    display: flex;
+    width: inherit;
+  }
+  #container #results .guessRow .letters {
+    width: auto;
+    flex: 1;
+    display: flex;
+  }
+  #container #results .guessRow .letters .letter {
+    width: auto;
+    flex: 1;
+    float: none;
+  }
+  #container #results .guessRow .dot {
+    border-radius: 50%;
+    justify-content: center;
+    flex: 1;
+    float: none;
+  }
+}

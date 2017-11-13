@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOM Manipulation</title>
+  <!-- Include jQuery (hotlink) -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div id="myDiv"><span>I'm a Container.</span></div>
+<script>
+  var htmlContent = $('#myDiv').html();
+  htmlContent = htmlContent.toUpperCase(); // now it's all uppercase.
+  $('#myDiv').html(htmlContent); // apply the change and switch the content.
+
+
+  $("#myDiv").prepend("<span>I come first.</span>");
+  $("#myDiv").append("<span>I come last.</span>");
+  $("<span>No, I’m last</span>").appendTo("#myDiv")
+  $("#myDiv").after("<span>I’m sibling</span>");
+</script>
+</body>
+</html>

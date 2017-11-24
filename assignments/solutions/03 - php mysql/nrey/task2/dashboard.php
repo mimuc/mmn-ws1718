@@ -38,7 +38,7 @@
     // switch over action to trigger behavior that user wanted
     switch ($action) {
       case 'Add note': // Add button was used
-        if($dbHandler->insertNote($title, $note, $_SESSION['userName'])){
+        if($dbHandler->insertNote($_SESSION['userID'], $title, $note, $_SESSION['userName'])){
           $message = "<div class='hint'>Successfully added a note!</div>";
         } else {
           $message = "<div class='hint error'>Error while adding note!</div>";

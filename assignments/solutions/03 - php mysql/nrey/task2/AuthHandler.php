@@ -81,15 +81,18 @@ class AuthHandler
     function loginUser($user,$password){
       if($this->connection){
         $table = $this->getTableConstant();
-        $query_selectUser = "SELECT * FROM $table WHERE user='$user'";
+        $query_selectUser = "SELECT * FROM $table WHERE user=?";
         $statement = $this->connection->prepare($query_selectUser);
+        $statement->bind_param('s', $user);
         $statement->execute();
         $result = $statement->get_result();
         while($row = $result->fetch_assoc()){
           $hash = $row['password'];
+          $userID = $row['id'];
           if(password_verify($password, $hash)){
               $_SESSION['loggedIn'] = true;
               $_SESSION['userName'] = $user;
+              $_SESSION['userID'] = $userID;
               return true;
           }
         }
@@ -104,8 +107,9 @@ class AuthHandler
     function existsUser($user){
         $users = array();
         $table = $this->getTableConstant();
-        $query_selectUser = "SELECT * FROM $table WHERE user='$user'";
+        $query_selectUser = "SELECT * FROM $table WHERE user=?";
         $statement = $this->connection->prepare($query_selectUser);
+        $statement->bind_param('s', $user);
         $statement->execute();
         $result = $statement->get_result();
         while($result->fetch_assoc()){

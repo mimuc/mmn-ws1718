@@ -94,8 +94,9 @@ class DBHandler
     function updateQuery($key, $value, $firstName, $email){
       if($this->connection){
         $table = $this->getTableConstant();
-        $query_updateRow = "UPDATE $table SET $key='$value' WHERE firstName='$firstName' OR email='$email'";
+        $query_updateRow = "UPDATE $table SET $key=? WHERE firstName=? OR email=?";
         $statement = $this->connection->prepare($query_updateRow);
+        $statement->bind_param('sss', $value, $firstname, $email);
         if($statement->execute()){
           return true;
         }
@@ -112,8 +113,9 @@ class DBHandler
     function deleteContact($firstName,$email){
         if($this->connection){
           $table = $this->getTableConstant();
-          $query_deleteRow = "DELETE FROM $table WHERE firstName='$firstName' AND email='$email'";
+          $query_deleteRow = "DELETE FROM $table WHERE firstName=? AND email=?";
           $statement = $this->connection->prepare($query_deleteRow);
+          $statement->bind_param('ss', $firstName, $email);
           if($statement->execute()){
             return true;
           }
@@ -168,8 +170,9 @@ class DBHandler
     function existsContact($firstName, $email){
         $contacts = array();
         $table = $this->getTableConstant();
-        $query_selectContact = "SELECT * FROM $table WHERE firstName='$firstName' AND email='$email'";
+        $query_selectContact = "SELECT * FROM $table WHERE firstName=? AND email=?";
         $statement = $this->connection->prepare($query_selectContact);
+        $statement->bind_param('ss', $firstName, $email);
         $statement->execute();
         $result = $statement->get_result();
         while($result->fetch_assoc()){

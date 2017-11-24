@@ -1,7 +1,7 @@
 <?php
 // enter your data here
 class ConnectionInfo {
-  var $host = "localhost";
+  var $host = "";
   var $user = "";
   var $password = "";
   var $db = "";

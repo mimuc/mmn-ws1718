@@ -38,13 +38,13 @@ class DBHandler
      * @param $note String note message
      * @return bool true for success, false for error
      */
-    function insertNote($title,$note,$user){
+    function insertNote($userID, $title,$note,$user){
       if($this->connection){
         $table = $this->getTableConstant();
         $query_insertRow = "INSERT INTO $table
-          (`title`, `note`, `user`) VALUES (?, ?, ?)";
+          (`userID`, `title`, `note`, `user`) VALUES (?, ?, ?, ?)";
         $statement = $this->connection->prepare($query_insertRow);
-        $statement->bind_param('sss', $title, $note, $user);
+        $statement->bind_param('isss', $userID, $title, $note, $user);
         if($statement->execute()){
           return true;
         }
@@ -75,8 +75,9 @@ class DBHandler
     function updateQuery($id, $key, $value){
       if($this->connection){
         $table = $this->getTableConstant();
-        $query_updateRow = "UPDATE $table SET $key='$value' WHERE id='$id'";
+        $query_updateRow = "UPDATE $table SET $key=? WHERE id=?";
         $statement = $this->connection->prepare($query_updateRow);
+        $statement->bind_param('ss', $value, $id);
         if($statement->execute()){
           return true;
         }
@@ -106,8 +107,9 @@ class DBHandler
     function deleteNote($id){
       if($this->connection){
         $table = $this->getTableConstant();
-        $query_deleteRow = "DELETE FROM $table WHERE id='$id'";
+        $query_deleteRow = "DELETE FROM $table WHERE id=?";
         $statement = $this->connection->prepare($query_deleteRow);
+        $statement->bind_param('s', $id);
         if($statement->execute()){
           return true;
         }
@@ -125,9 +127,13 @@ class DBHandler
         $table = $this->getTableConstant();
         $query_createTable = "CREATE TABLE IF NOT EXISTS $table (
           `id` INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+          `userID` INT(5) NOT NULL,
           `title` VARCHAR(50) NOT NULL,
           `note` VARCHAR(300) NOT NULL,
-          `user` VARCHAR(50) NOT NULL
+          `user` VARCHAR(50) NOT NULL,
+          FOREIGN KEY (userID)
+            REFERENCES users(id)
+            ON DELETE CASCADE
         )";
         // prepare the statement
         $statement = $this->connection->prepare($query_createTable);
@@ -144,8 +150,9 @@ class DBHandler
     function fetchNotes($user){
       $notes = array();
       $table = $this->getTableConstant();
-      $query_selectNotes = "SELECT id, title, note FROM $table WHERE user='$user'";
+      $query_selectNotes = "SELECT id, title, note FROM $table WHERE user=?";
       $statement = $this->connection->prepare($query_selectNotes);
+      $statement->bind_param('s', $user);
       $statement->execute();
       $result = $statement->get_result();
       while($row = $result->fetch_assoc()){

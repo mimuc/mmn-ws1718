@@ -1,0 +1,17 @@
+body {
+    padding: 20px;
+}
+
+body .container {
+    max-width: 100%;
+}
+
+#contactstable {
+    font-size: 0.8em;
+}
+
+.icon {
+    float: left;
+    cursor: pointer;
+    margin-right: 3px;
+}

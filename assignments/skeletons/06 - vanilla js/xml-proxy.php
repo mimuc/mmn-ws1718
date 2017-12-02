@@ -15,15 +15,13 @@ header("Access-Control-Allow-Method: *");
 header("Access-Control-Allow-Origin: *");
 
 
-
-
 error_reporting(E_ERROR);
 
 
 if (isset($_GET['url']) && !empty($_GET['url'])) {
     $url = $_GET['url'];
 } else {
-    $url = 'https://feeds.feedburner.com/Techcrunch/europe';
+    $url = 'http://feeds.feedburner.com/Techcrunch/europe';
 }
 
 $failureObj = array(
@@ -48,3 +46,4 @@ try {
     json_encode($failureObj);
     exit();
 }
+

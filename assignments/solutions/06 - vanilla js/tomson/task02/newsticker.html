@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title> NewsTicker</title>
+
+<!-- Output of news feed without styling and still not optimized-->
+	<style>
+
+	</style>
+	<script>
+        var randomSourceNumber = 0;
+        //Function for Loading
+        function loadRss(){
+            var output = document.getElementById("feed-container");
+
+            //sources array
+            var sources = [
+                "https://www.technologyreview.com/stories.rss",
+                "http://feeds.feedburner.com/Techcrunch/europe",
+                "http://feeds.feedburner.com/HowToGeek"
+            ]
+
+            //select one random source
+            var maxSources = sources.length;
+            var tmp = randomSourceNumber
+            randomSourceNumber = getRandomInt(0, maxSources-1);
+           //avoid refreshes without changes
+            while(tmp == randomSourceNumber){
+                randomSourceNumber = getRandomInt(0, maxSources-1);
+			}
+
+            var sourceLink = sources[randomSourceNumber];
+//Zum Testen
+//sourceLink = "http://feeds.feedburner.com/HowToGeek";
+            //create the proxy link
+            var proxyLink = "http://localhost/xml-proxy.php?url=" + sourceLink;
+
+            //ajax request
+            var req = new XMLHttpRequest();
+            req.open('get', proxyLink);
+            req.onreadystatechange = function() {
+                if (req.readyState === 4) { // done
+                    var response = req.responseText;
+                    //Parse output
+                    var outputObject = JSON.parse(response);
+                    var content = "";
+                    //build header of news
+                    var link = outputObject.channel.link;
+					var img = outputObject.channel.image.url;
+                    var header;
+                    header = '<h1><a href="' + link + '">' + outputObject.channel.title + "</a></h1>";
+                    var description = outputObject.channel.description;
+                    if(description !== undefined && description !== null && description !== "[object Object]") { header += '<p>' + description + '</p>'; }
+                    if(img !== undefined && img !== null) { header +=  '<img src="' + img + '"></img>'; }
+
+                    //build news content for each item
+                    var item = outputObject.channel.item;
+                    var news = '';
+                    item.forEach(function (newsItem, index){
+                        //TODO parse each Item for output
+                        news += '<div>';
+                        news += '<h2>' + newsItem.title + '</h2>';
+                        news += '<p>' + newsItem.description + '</p>';
+                        news += '<a href="' + newsItem.link + '> Continue reading</a>';
+                        news += '</div>';
+                    });
+
+
+                    content = header + news;
+                    output.innerHTML = content;
+
+                }
+            };
+            req.send();
+
+        }
+        //function to get a random number beetween min and max
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+	</script>
+
+</head>
+<body>
+<button type="button" onclick="loadRss();">Neue News Laden</button>
+<div id="feed-container">
+
+</div>
+<script>
+	loadRss();
+		//Reload news every 60s
+	setInterval(function(){ loadRss(); }, 60000);
+
+
+
+
+
+</script>
+</body>
+</html>

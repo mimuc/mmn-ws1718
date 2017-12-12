@@ -8,11 +8,11 @@
     <title>Assignment 3, task 1</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/font-awesome/css/font-awesome.min.css">
+    <link href="../../../assets/bootstrap-4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../assets/font-awesome/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
     <link href="style.css" rel="stylesheet">
-    <script src="./assets/js/jquery-3.2.1.min.js"></script>
+    <script src="../../../assets/js/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title> Slideshow</title>
+	<!-- Worked along https://www.w3schools.com/howto/howto_js_slideshow.asp -->
+
+	<style>
+		* {box-sizing:border-box}
+		.slideshow-container {
+			max-width: 300px;
+			position: relative;
+			margin: auto;
+
+		}
+
+		img {
+			border-width: 2px;
+			border-style: solid;
+			border-color: silver;
+		}
+		.mySlides {display: none;}
+
+		/* Fading animation */
+		.fade {
+			-webkit-animation-name: fade;
+			-webkit-animation-duration: 1.5s;
+			animation-name: fade;
+			animation-duration: 1.5s;
+		}
+
+		@-webkit-keyframes fade {
+			from {opacity: .4}
+			to {opacity: 1}
+		}
+
+		@keyframes fade {
+			from {opacity: .4}
+			to {opacity: 1}
+		}
+	</style>
+
+</head>
+<body>
+<div class="slideshow-container">
+	<div id="actualSlide">
+
+	</div>
+	<div class="mySlides fade">
+		<img src="img1.jpg" style="width:100%">
+		<div class="text">Regenwald 1</div>
+	</div>
+
+	<div class="mySlides fade">
+		<img src="img2.jpg" style="width:100%">
+		<div class="text">Regenwald 2</div>
+	</div>
+
+	<div class="mySlides fade">
+		<img src="img3.jpg" style="width:100%">
+		<div class="text">Regenwald 3</div>
+	</div>
+	<div class="mySlides fade">
+		<img src="img4.jpg" style="width:100%">
+		<div class="text">Regenwald 4</div>
+	</div>
+
+	<button type="button" id="backward" onclick="showSlides(-1)">Backward</button>
+	<button type="button" id="forward" onclick="showSlides(1)">Forward</button>
+</div>
+<script>
+
+    var i = 0;
+    var slides = document.getElementsByClassName("mySlides");
+    var slideIndex = 1;
+    var slidesSum = slides.length;
+
+    var actualSlide = document.querySelector("#actualSlide");
+    var numberSlide = "";
+    showSlides(slideIndex);
+    function showSlides(n){
+       	//hide actual picture
+        slides[slideIndex-1].style.display = "none";
+        slideIndex += n;
+        //Showing pictures in cycle
+        if(slideIndex > slidesSum){ slideIndex = 1;}
+        if(slideIndex < 1){slideIndex = slidesSum;}
+        //show actual picture
+        slides[slideIndex-1].style.display = "block";
+		//update actual slide display
+        numberSlide = slideIndex + "/" + slidesSum;
+        actualSlide.innerHTML = numberSlide;
+
+    }
+
+
+</script>
+</body>
+</html>

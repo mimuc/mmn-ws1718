@@ -1,0 +1,128 @@
+.user-form {
+  width: 300px;
+}
+
+.top {
+  background-color: #60867e;
+  height: 32px;
+  padding: 5px;
+}
+
+.hint {
+  font-size: 1.2rem;
+  line-height: 150%;
+}
+
+.error {
+  color:orange;
+}
+
+.top > div {
+  display:inline-block;
+  margin: 0 10px;
+  color:white;
+  font-size: 1.5rem;
+}
+
+.float-right {
+  float:right;
+  text-align:right;
+  width:15%;
+}
+
+input, textarea {
+  display:block;
+  margin: 10px auto;
+  width: 70%;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+textarea {
+  min-height:50px;
+}
+
+#newFormContainer {
+  padding: 30px 0;
+}
+
+input[type=submit] {
+  background-color: #555;
+  width: 20%;
+  color:white;
+}
+
+.hidden {
+  display:none;
+}
+
+.button {
+  font-weight:bold;
+  color:white;
+}
+
+.add {
+  background-color:#66b266!important;
+}
+
+.update {
+  background-color:#6666ff!important;
+}
+
+.inline {
+  display:inline;
+}
+
+.delete {
+  background-color: #b20000!important;
+}
+
+.card {
+  margin: 16px auto;
+}
+
+.card:nth-child(odd) {
+  background-color: lightblue;
+}
+
+.card:nth-child(even) {
+  background-color: #e6c9a5;
+}
+
+.dashboard-link {
+  background-color: lightgreen!important;
+}
+
+.logout {
+  text-decoration: none;
+  background-color: #ddd;
+  padding: 0 5px;
+  border-radius: 3px;
+  border: 1px solid silver;
+}
+
+.button-hover:hover {
+  border: 1px solid #777;
+}
+
+input[type=checkbox] {
+	position: absolute;
+  width: 10px;
+}
+
+#notes {
+  padding-bottom: 200px;
+}
+
+.brand {
+  font-weight:bold;
+  float:left;
+  text-align:left;
+  width: 30%;
+  color:#cccc00!important;
+}
+
+.greeting {
+  color:lightblue!important;
+}

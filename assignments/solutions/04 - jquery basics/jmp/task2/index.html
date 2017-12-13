@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../assets/bootstrap-4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="styles.css" rel="stylesheet">
+    <script src="../../../assets/js/jquery-3.2.1.min.js"></script>
+    <script src="./zxcvbn.js"></script>
+    <!-- in functions.js you find all custom JS functions used in this project -->
+    <script src="functions.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
+    <a class="navbar-brand" href="#">Password Strength</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div id="input-area">
+        <div class="input-group input-group-lg">
+            <input id="pw-input" placeholder="Please type in a password" type="password" class="form-control"/>
+        </div>
+    </div>
+    <div id="strength-bar">
+        <div class="box">
+            <div class="bar"></div>
+        </div>
+        <div class="box">
+            <div class="bar"></div>
+        </div>
+        <div class="box">
+            <div class="bar"></div>
+        </div>
+        <div class="box">
+            <div class="bar"></div>
+        </div>
+        <div class="box">
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <h3 id="warning"></h3>
+    <p id="description">
+        If this password were used for an online banking site, it could probably be cracked within <span id="cracked_pw"></span>.<br/>
+        If this password would leak as encrypted string, it could probably be cracked within <span id="cracked_encstring"></span>.<br/>
+    </p>
+    <ul id="suggestions">
+    </ul>
+</div>
+</div><!-- /.container -->
+<div class="container flex-full">
+<textarea id="output" class="flex-full" readonly="readonly">
+</textarea>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../../assets/js/popper.min.js"></script>
+<script src="../../../assets/bootstrap-4.0.0-beta/js/bootstrap.min.js"></script>
+</body>
+</html>

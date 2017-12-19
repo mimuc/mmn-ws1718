@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random Color Generator</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font: 12pt 'Helvetica', 'Arial', sans-serif;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      transition: background-color 0.2s;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #buttonWrapper {
+      position: absolute;
+      bottom: 1em;
+    }
+
+    button {
+      font-size: 30px;
+    }
+
+    #colorNameContainer {
+      margin: auto;
+      font-size: 50px;
+    }
+  </style>
+</head>
+<body>
+<div id="buttonWrapper">
+  <button id="generateButton">Generate</button>
+  <button id="discoButton">Disco</button>
+</div>
+<div id="colorNameContainer"></div>
+
+<script>
+  /**
+   * gives you a random color as string in hex format.
+   * snatched from http://stackoverflow.com/a/39078626/1447479
+   * @returns {string} color string like "#ab12ce"
+   */
+  function getRandomColor() {
+    return "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
+  }
+
+  /**
+   * applies a random color to the backgroundColor property of the body.
+   * @param color {string} a color hex string
+   */
+  function applyColor(color) {
+    var body = $('body');
+
+    // TODO provide the correct selector to select the #colorNameContainer;
+    var colorNameContainer = ''; // $('???');
+
+
+    // using the .css Method, we apply the randomColor to the background of the body.
+    // documentation: http://api.jquery.com/css/
+    body.css({backgroundColor: color});
+
+    // TODO show the name of the new color in the colorNameContainer.
+    colorNameContainer.what_method_do_you_use_here(color);
+  }
+
+  /**
+   * Starts generating colors and applies them after 500 milliseconds over and over.
+   * @returns {number} the interval identifier.
+   */
+  function startDisco() {
+    var duration = 500; // milliseconds
+    // I've tested this while listening to the new justice album. 500ms often fits the beat (120bpm)
+    return window.setInterval(function() {
+      var color = getRandomColor();
+      applyColor(color);
+    }, duration);
+  }
+
+  // declare all our variables that we need
+  var generateButton = '???'; // TODO select the #generateButton with jquery -- $('???')
+  var discoIntervalId; // holds the identifier of the disco mode interval.
+
+  var discoButton = $('#discoButton'); // selects the element with the ID #discoButton
+
+  /*
+  TODO  attach an event handler (click) to the generateButton. It should generate a color and apply it.
+        use the functions getRandomColor and applyColor.
+        you can take a look at how it's done for the discoButton below.
+   */
+  // Your
+  // Code
+  // Goes
+  // Here
+
+
+
+  /*
+  This is how you add an event handler for the click event to the disco button.
+   */
+  discoButton.click(function() {
+    // this function is called when the discoButton is clicked.
+
+    // if we don't have a discoIntervalId, that means, the disco mode is not running.
+    if (!discoIntervalId) {
+      // let's start the disco!
+      discoIntervalId = startDisco();
+    } else {
+      // we already have a discoIntervalId, so we need to stop the disco mode now. This is sad.
+      window.clearInterval(discoIntervalId);
+      discoIntervalId = null;
+    }
+  });
+
+  // when we load the page for the first time, we need to apply a random color.
+  applyColor(getRandomColor());
+</script>
+</body>
+</html>

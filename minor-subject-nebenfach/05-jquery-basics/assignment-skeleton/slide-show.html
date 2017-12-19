@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slide Show</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font: 12pt 'Helvetica', 'Arial', sans-serif;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      transition: background-color 0.2s;
+      align-items: center;
+    }
+
+    #container {
+      position: relative;
+      max-width: 100%;
+      flex: 1;
+      text-align: center;
+    }
+
+    #slideShowImages {
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      height: 500px;
+      margin: 50px auto;
+    }
+
+    .slide.current {
+      display: block;
+    }
+
+    #currentImageNumber {
+      color: white;
+      font-size: 200px;
+      /* centered vertically */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    button {
+      font-size: 60px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+      background-color: dodgerblue;
+      color: white;
+    }
+
+    button:active {
+      background-color: #00B7FF;
+    }
+
+    button#backButton {
+      position: absolute;
+      left: 50px;
+      top: 50%;
+    }
+
+    button#nextButton {
+      position: absolute;
+      right: 50px;
+      top: 50%;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <div id="slideShowImages">
+    <div id="currentImageNumber"></div>
+    <img src="https://app-layout-assets.appspot.com/assets/bg1.jpg" id="1" class="slide">
+    <img src="https://app-layout-assets.appspot.com/assets/bg2.jpg" id="2" class="slide">
+    <img src="https://app-layout-assets.appspot.com/assets/bg3.jpg" id="3" class="slide">
+    <img src="https://app-layout-assets.appspot.com/assets/bg4.jpg" id="4" class="slide">
+  </div>
+  <button id="backButton">❮</button>
+  <button id="nextButton">❯</button>
+</div>
+<script>
+  var slideShowImages = $('#slideShowImages');
+  var currentImageNumber = $('#currentImageNumber');
+  var backButton = $('#backButton');
+  var nextButton = $('#nextButton');
+
+  // how many images do we have?
+  var numberOfImages = slideShowImages.find('img').length;
+  // this is a counter that holds the id/number of the currently displayed image.
+  var currentImage = 1;
+
+  /**
+   * shows the image by giving it the 'current' class
+   * the CSS in the <style> block above specifies that only the slides
+   * with the .current class are shown, the rest has display: none
+   *
+   * @param number {Number} number inside the id of the image.
+   */
+  function showImage(number) {
+    // first hide the currently selected Image:
+    slideShowImages.find('.slide.current').removeClass('current');
+    // then add the 'current' class to the image with the id = number;
+    slideShowImages.find('#' + number).addClass('current');
+    currentImageNumber.html(number);
+  }
+
+  // when we load the page, we want to show the first image:
+  showImage(currentImage);
+
+  // TODO: add a click listener to the back button and the next button.
+  // TODO: if the back button is pressed when currentImage == 1, set currentImage = numberOfImages;
+  // TODO: if the next button is pressed when currentImage == numberOfImages, set currentImage = 1;
+  // TODO: call the showImage correctly.
+  // YOUR
+  // CODE
+  // GOES
+  // HERE
+</script>
+</body>
+</html>

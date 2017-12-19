@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Overview</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #container {
+      position: relative;
+    }
+
+    .videoContainer {
+      width: 560px;
+      position: relative;
+      margin: 30px auto;
+
+    }
+
+    .deleteButton {
+      width: 30px;
+      height: 30px;
+      border: 0;
+      border-radius: 50%;
+      background-color: #448AFF;
+      color: white;
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      z-index: 1;
+      -webkit-box-shadow: 0 5px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0 5px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+
+    .deleteButton:hover, .deleteButton:focus {
+      background-color: #77aaff;
+      font-weight: bold;
+    }
+
+    .deleteButton:active {
+      background-color: #00B7FF;
+    }
+
+    .notificationBar {
+      position: absolute;
+      text-align: center;
+      padding: 1em;
+      display: none;
+      background-color: #77aaff;
+      color: white;
+      border: 2px solid #448AFF;
+      border-radius: 5px;
+      width: 60%;
+      min-height: 20px;
+      margin: auto;
+      z-index: 2;
+      /* http://stackoverflow.com/a/25776315/1447479 */
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+
+<!--
+
+  HTML part of the file
+
+-->
+
+<h1>Videos</h1>
+<div id="container"></div>
+
+
+
+<!--
+
+  Script part of the file
+
+-->
+
+<script>
+
+  // add videos as you like. Just make sure you use the * embed * URL (not youtu.be)
+  var videoURLs = ['https://www.youtube.com/embed/4eNBM17tkjI',
+    'https://www.youtube.com/embed/dzqm4XVkMJ4',
+    'https://www.youtube.com/embed/XeBXpuOHzao',
+    'https://www.youtube.com/embed/tFL6KDSp9MQ',
+    'https://www.youtube.com/embed/Ca62hW7eUS0'
+  ];
+
+  // this element contains all other elements.
+  var containerElement = $('#container');
+
+  // we create a video for each URL that we have in the array above.
+  for (var i = 0; i < videoURLs.length; i++) {
+    // read the next URL from the videoURLs array
+    var url = videoURLs[i];
+
+
+    // create an <iframe> element
+    var iframeElement = $('<iframe height="315" width="560" frameborder="0" allowfullscreen>');
+
+    // create a delete button that will be shown at the top-right corner of each video.
+    // the button's position is set via the CSS class .deleteButton, so we give it the class here.
+    var deleteButtonElement = $('<button class="deleteButton">X</button>');
+
+    // create an element that will *contain* both the iframe and the delete button
+    var videoContainerElement = $('<div class="videoContainer">');
+
+    ///////////////////////////////
+    ///
+    /// All variables are now declared for this scope. Now we can start using them.
+    ///
+    ///////////////////////////////
+
+
+    // this gives the <iframe> a "src" property with a valid URL.
+    iframeElement.prop('src', url);
+
+    // let's put things togeter: attach the <iframe> and the <button> to the videoContainer
+    videoContainerElement.append(iframeElement);
+    videoContainerElement.append(deleteButtonElement);
+
+    // finally, attach the videoContainer to the #container, where all elements go.
+    containerElement.append(videoContainerElement);
+
+    // attach an eventlistener for the 'click' event on the deleteButtonElement
+    // TODO: use the right function!
+    deleteButtonElement.__use__the__correct__function__name(function() {
+
+
+      var buttonElement = $(this);
+
+      // we cannot use the videoContainerElement direclty (already overridden in next loop iteration)
+      // so we need to access it as the button's parent.
+      var video = buttonElement.parent();
+
+      // TODO: remove the button.
+      // TODO: fade the video out or run any other animation to remove the video from the view.
+
+
+      // BONUS-TODO: After the video was removed, show a notification bar
+      // you can use <div class=".notificationBar"> for that.
+      // how to do it? the .fadeOut() or .slideUp() function takes a function as parameter.
+      // this function is called _after_ the animation has completed (callback function)
+      // so, in this callback function you can create the notification bar and append it to containerElement.
+      // check out the demo here: https://youtu.be/eHEUs_5_kqk
+    });
+  }
+
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
 
 <dom-module id="counter-view">
   <template>
@@ -7,19 +7,22 @@
         width: 100%;
         height: 100%;
       }
+
       #container {
-        max-width:100%;
+        max-width: 100%;
         padding: 5px;
         margin: auto;
         display: flex;
-        flex-direction:column;
+        flex-direction: column;
         height: 90%;
         align-items: center;
       }
+
       #container > div {
         width: 100%;
         text-align: center;
       }
+
       #output {
         flex: 1;
         display: flex;
@@ -27,6 +30,7 @@
         justify-content: center;
         font-size: 75px;
       }
+
       button {
         width: 150px;
         height: 40px;
@@ -64,9 +68,10 @@
         background-color: #fff;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         min-width: 250px;
-        max-width:90%;
+        max-width: 90%;
       }
-      @media (max-width:400px) {
+
+      @media (max-width: 400px) {
         .card {
           margin: 8px auto;
         }
@@ -77,23 +82,36 @@
     <div id="container">
       <div id="output" class="card">[[count]]</div>
       <div id="controls">
-        <button id="minus" on-tap="down">-1</button>
-        <button id="plus" on-tap="up">+1</button>
+        <button id="minus" on-click="down">-1</button>
+        <button id="plus" on-click="up">+1</button>
       </div>
     </div>
   </template>
   <script>
-    Polymer({
-      is: 'counter-view',
-      down: function() {
+    class CounterView extends Polymer.Element {
+      static get is() {
+        return 'counter-view';
+      }
+      static get properties(){
+        return {
+          count: Number
+        }
+      }
+
+      down() {
         this.count--;
-      },
-      up: function() {
+      }
+
+      up() {
         this.count++;
-      },
-      ready: function() {
+      }
+
+      ready() {
+        super.ready();
         this.count = 0;
       }
-    });
+    }
+
+    window.customElements.define(CounterView.is, CounterView);
   </script>
 </dom-module>

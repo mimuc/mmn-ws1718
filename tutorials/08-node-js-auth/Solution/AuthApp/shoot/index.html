@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Screenshot Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<header><span>Screenshot Service</span></header>
+
+<div id="container">
+  <form id="urlForm">
+    <input id="urlInput" type="text" name="url" placeholder="Enter URL of a website to take screenshot"/>
+    <button id="go" type="submit">Go!</button>
+  </form>
+</div>
+
+<div id="result"></div>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+  (function() {
+
+    function makeCSSLoader() {
+      var loaderEl = $('<div class="cssload-container">');
+      var wheelEl = $('<div class="cssload-speeding-wheel">');
+      loaderEl.append(wheelEl);
+      return loaderEl;
+    }
+
+    $('#urlForm').on('submit', function(e) {
+      var inputValue = $('#urlInput').val();
+      var resultDiv = $('#result');
+      var cardEl, loaderEl = makeCSSLoader();
+
+      e.preventDefault();
+      resultDiv.empty();
+      cardEl = $('<div class="card shot">');
+      cardEl.html('Loading...');
+      cardEl.append(loaderEl);
+      resultDiv.append(cardEl);
+
+      $.get('screenshots/create', {
+        url: inputValue
+      }, function(response) {
+        cardEl.empty();
+        if (response.status != 'error') {
+          cardEl.append($('<img>').attr('src', response.path)).appendTo(resultDiv);
+        } else {
+          cardEl.html('Failed to create screenshot. ' + response.reason);
+        }
+      })
+    });
+  })();
+</script>
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+<link rel="stylesheet" href="shootstyle.css">
+<link rel="stylesheet" href="cssloader.css">
+</html>

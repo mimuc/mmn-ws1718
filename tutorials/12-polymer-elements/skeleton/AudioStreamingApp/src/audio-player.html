@@ -1,0 +1,46 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="audio-player">
+  <template>
+    <style>
+
+    </style>
+
+    <paper-button raised on-tap="_togglePlaying">Play</paper-button>
+    <audio src="[[ song ]]" id="player"></audio>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'audio-player',
+      properties: {
+        playing: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+        song: {
+          type: String
+        }
+
+      },
+      ready: function() {
+
+      },
+      _togglePlaying: function() {
+
+        if (this.playing) {
+          this.querySelector('#player').pause()
+        } else {
+          this.querySelector('#player').play()
+        }
+
+        this.playing = !this.playing;
+
+        console.log('is this playing?', this.playing);
+      }
+    });
+  </script>
+</dom-module>

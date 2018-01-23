@@ -6,15 +6,69 @@
 <dom-module id="audio-player">
   <template>
     <style>
+      .flexParent {
+        display: flex;
+        flex-direction: row;
+      }
 
+      .flexParent paper-slider {
+        flex: 1;
+      }
     </style>
+    <div class="flexParent">
+      <!-- TODO a play/pause button would be nice -->
+      <paper-slider min="0" max="1" step="0.1" value="{{volume}}" pin disabled="[[!songUrl]]"></paper-slider>
+      <paper-button disabled>[[currentTime]]</paper-button>
+    </div>
+    <!-- a simple HTML 5 audio player -->
+    <audio id="player" src$="[[songUrl]]"></audio>
   </template>
   <script>
 	  class AudioPlayer extends Polymer.Element {
 		  static get is() {return 'audio-player'}
 
-          static get properties(){
+              static get properties(){
+                return {
+                	// the url for the above audio tag has to be passed as component parameter
+                	songUrl: {
+                		type: String,
+						value: ''
+                    },
+                    playing: {
+                		type: Boolean,
+                        value: false,
+                        notify: true
+                    },
+					volume: {
+						type: Number,
+						value: 0.5,
+						notify: true,
+						observer: '_volumeChanged'
+					}
+                }
+              }
 
-          } }
+              ready(){
+		  	    super.ready();
+		  	    // start the player as soon as the component is ready
+		  	    this.$.player.play();
+		  	    this.playing = true;
+              }
+
+              _volumeChanged(vol) {
+                  this.$.player.volume = vol;
+              }
+              _updateTime() {
+                  const secsPerMinute = 60;
+                  var currentSeconds = this.$.player.currentTime;
+                  var minutes, seconds;
+                  seconds = Math.floor(currentSeconds % secsPerMinute);
+                  minutes = Math.floor(currentSeconds / secsPerMinute);
+                  seconds = seconds < 10 ? '0' + seconds : seconds;
+                  minutes = minutes < 10 ? '0' + minutes : minutes;
+                  this.currentTime = minutes + ':' + seconds;
+              }
+          }
+          window.customElements.define(AudioPlayer.is, AudioPlayer);
   </script>
 </dom-module>

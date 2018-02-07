@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PayWall Video</title>
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+  <style>
+    video {
+      width: 600px;
+    }
+
+    #pay {
+      display: none;
+    }
+
+    #paymentInfo {
+      font-size: 25px;
+      color: crimson;
+    }
+
+    #paymentInfo.paid {
+      color: forestgreen;
+    }
+  </style>
+</head>
+<body>
+
+<header>Paywall</header>
+<div id="container">
+  <div class="card">
+    <video controls autoplay>
+      <source src="http://www.medien.ifi.lmu.de/lehre/ws1516/mmn/uebung/material/w3c-webstandards.mp4"
+              type="video/mp4"/>
+    </video>
+  </div>
+  <div id="paymentInfo" class="card">
+    Not Paid.
+    <button id="pay">Pay to Play!</button>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+  var source = 'http://www.medien.ifi.lmu.de/lehre/ws1516/mmn/uebung/material/w3c-webstandards.mp4';
+  var video = $('video');
+  var payButton = $('#pay');
+  var paywallThreshold = 5; // seconds
+
+
+  function showPaywall() {
+    var videoElement = video.get(0);
+    videoElement.pause();
+    payButton.show();
+
+    // TODO set the correct attributes of the video with .attr()
+  }
+
+  function handlePayment() {
+    var videoElement = video.get(0);
+    var paymentInfo = $('#paymentInfo');
+    // TODO remove the timeupdate event handler from the video
+    // TODO remove the click event handler from the pay button
+    // TODO set the correct attributes.
+    // TODO replace the content of the <div id="paymentInfo">. Inform the user that the payment was received.
+    // TODO add the class "paid" to the paymentInfo div
+    // TODO play back the video
+
+  }
+
+  function userNeedsToPay() {
+    // TODO return true if the paywallThreshold was exceeded.
+  }
+
+  // TODO add an event handler for the 'timeupdate' event
+  // you should find out if the user already has to pay by calling the userNeedsToPay function.
+
+
+  // TODO add a click event handler to the payButton.
+  // it should call the handlePayment function.
+
+
+</script>
+</body>
+</html>

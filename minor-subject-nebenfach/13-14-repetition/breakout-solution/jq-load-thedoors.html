@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQ AJAX</title>
+</head>
+<body>
+<div id="output"></div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+    var output = $('#output');
+    $.get('thedoors.json', function (data) {
+        // do something with data.
+    });
+
+    output.append($('<h1>').html(data.name));
+    $.each(data.members, function () {
+        output.append($('<li>').html(this));
+    });
+</script>
+</body>
+</html>

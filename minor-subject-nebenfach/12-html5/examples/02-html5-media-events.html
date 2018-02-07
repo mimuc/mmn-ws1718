@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VideoPlayer</title>
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+  <style>
+    #log {
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+<header><span>Video Player</span></header>
+<div id="container">
+  <div class="videoWrapper">
+    <video id="videoPlayer" preload="metadata" controls>
+      <!--<source src="../../video/web-standards.mp4" type="video/mp4"/>-->
+      <source src="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4" type="video/mp4">
+      If you can read this, your browser
+      does not support the video tag.
+    </video>
+
+    <div class="credits">
+      Video "Dev Stories" by Google Inc.
+      (HTML5Rocks.com)
+    </div>
+  </div>
+  <div id="log">
+    <!-- this will hold some log output from media events. -->
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+
+  /**
+   * shows the passed message in the <div id="log"> with a timestamp.
+   * @param message
+   */
+  function log(message) {
+    var time = new Date().getTime();
+    var logOutput = $('#log');
+    var div = $('<div>');
+    div.append(time + ' -- ' + message);
+    logOutput.append(div);
+  }
+
+  $(document).ready(function() {
+    var video = $('video');
+
+    video.on('loadstart', function() {
+      log('loadStart');
+    });
+
+    video.on('loadedmetadata', function() {
+      log('loadedMetadata');
+    });
+
+    video.on('loadeddata', function() {
+      log('loadedData');
+    });
+
+    video.on('canplay', function() {
+      log('canPlay');
+    });
+
+    video.on('canplaythrough', function() {
+      log('canplaythrough');
+    });
+
+    video.on('ratechange', function() {
+      log('rateChange');
+    });
+
+    video.on('waiting', function() {
+      log('waiting');
+    });
+
+    video.on('playing', function() {
+      log('playing');
+    });
+
+    video.on('timeupdate', function() {
+      log('timeupdate. Current time: ' + video.get(0).currentTime);
+    });
+
+    video.on('pause', function() {
+      log('pause');
+    });
+
+    video.on('ended', function() {
+      log('ended');
+    });
+
+  })
+</script>
+</body>
+</html>

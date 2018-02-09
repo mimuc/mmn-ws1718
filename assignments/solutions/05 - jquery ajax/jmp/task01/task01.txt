@@ -1,0 +1,9 @@
+a) Because they are the keys that are needed to authenticate to the API. The Webservice does organize who may access the service
+   with this keys.
+
+b) API keys make it much easier to authenticate to an API. Developers just need to add their API key to the requests in order to
+   use the API commands. If API Keys did not exist the authentication might be done with username and password on every request.
+
+c) API Keys could be read out by other developers who have a look at the raw Http request. In order to make sure that only an
+   allowed application/website may have access to the API using this key, the API Key must be limited to a specific IP/Domain
+   (e.g. using the Allow-Origin header)

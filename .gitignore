@@ -183,3 +183,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/linux,macos,eclipse,windows,netbeans,intellij
 /assignments/solutions/07 - nodejs basics/jmp/task02/MMNExpressApp/node_modules/
 /assignments/solutions/08 - nodejs authentication/jmp/task02/ScreenshotApp/node_modules/
+/assignments/solutions/09 - nodejs watermarking/task01/WatermarkApp/node_modules/

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify-Track Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Tobias Seitz">
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+</head>
+<body>
+<header>Track Search</header>
+<div id="container">
+  <input type="search" id="searchField" placeholder="Track Name ..." value="Last Christmas"/>
+  <button id="searchButton">Search</button>
+  <div id="result"></div>
+</div>
+
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+  var searchButton = $('#searchButton');
+  var searchField = $('#searchField');
+  var spotifyURL = 'https://api.spotify.com/v1/search';
+  var resultDiv = $('#result');
+  searchButton.click(function () {
+    var songName = searchField.val();
+    if (songName.length > 2) {
+      $.get(spotifyURL, {
+        q: songName,
+        type: 'track'
+      }, function (data) {
+        // data.tracks contains the search result.
+        // the songs themselves are inside data.tracks.items.
+        var songs = data.tracks.items;
+        resultDiv.empty();
+        songs.forEach(function (song) {
+          var songCardDiv = $('<div class="card">');
+          var titleH2 = $('<h2>');
+          var artistH3 = $('<h3>');
+
+          titleH2.html(song.name);
+          if (song.artists.length === 1) {
+            artistH3.html(song.artists[0].name);
+          } else if (song.artists.length > 1) {
+            artistH3.html(song.artists.reduce(function (concatenated, artist) {
+              return concatenated.length ? concatenated + ', ' + artist.name : artist.name
+            }, ''));
+          }
+          songCardDiv.append(titleH2, artistH3);
+          resultDiv.append(songCardDiv);
+        });
+      });
+    }
+  })
+</script>
+</body>
+</html>

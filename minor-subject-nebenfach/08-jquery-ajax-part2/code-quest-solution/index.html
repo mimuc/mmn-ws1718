@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    iframe {
+      height: 320px;
+      width: 100%;
+      border: 0;
+      display: none;
+    }
+
+    .card > * {
+      margin: 10px 0;
+      display: block;
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+    }
+
+    .info > img {
+      flex: none;
+      height: 64px;
+      width: 64px;
+      margin-right: 16px;
+    }
+
+    .info > button {
+      width: 100px;
+      flex: none;
+    }
+
+    .info > * {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+<header><h2>Address Book</h2></header>
+<div id="container">
+</div>
+<!-- put stylesheets and scripts here to make page load faster. -->
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+  var containerEl = $('#container');
+  var users;
+  $.get('https://jsonplaceholder.typicode.com/users', function(data) {
+    // save the users:
+    users = data;
+    // data is an Array of users.
+    // users.forEach() is preferable because the closure creates
+    // a static snapshot of the variable values.
+    // if we use a loop, the values are overwritten by the
+    // next iteration.
+    for (var i = 0; i < data.length; i++) {
+      var user = data[i];
+      var userCard = $('<div class="card">');
+      var link = $('<a>Website</a>');
+      var mapFrame = $('<iframe style="display: none">');
+      var addressRow = $('<div class="info">');
+      var nameRow = $('<div class="info">');
+      var contactRow = $('<div class="info">');
+      var websiteRow = $('<div class="info">');
+      var mapRow = $('<div class="info">');
+
+      var showMapButton = $('<button>Show Map</button>');
+
+      userCard.attr('id', i);
+
+      nameRow.append('<img src="user.png">');
+      nameRow.append('<h2>' + user.name + '</h2>');
+
+      contactRow.append('<img src="pencil.png">');
+      contactRow.append(user.email);
+
+      link.attr('href', 'http://' + user.website);
+      websiteRow.append('<img src="computer.png">');
+      websiteRow.append(link);
+
+      mapRow.append('<img src="pin.png">');
+      mapRow.append(showMapButton);
+
+      addressRow.append('<img src="home.png">');
+      addressRow.append(user.address.street + ' ' +
+        user.address.suite + ', ' +
+        user.address.zipcode + ' ' +
+        user.address.city);
+
+      userCard.append(nameRow, addressRow, contactRow, websiteRow, mapRow);
+      userCard.append(mapFrame);
+      containerEl.append(userCard);
+
+
+      showMapButton.click(function() {
+        var card = $(this).parents('.card');
+        var mapFrame = card.find('iframe');
+        var frameURL = 'http://www.openstreetmap.org/export/embed.html?';
+        var user = users[card.attr('id')];
+
+        if (user && user.address && user.address.geo && !mapFrame.attr('src')) {
+          frameURL += 'marker=' + user.address.geo.lat + ',' + user.address.geo.lng;
+          mapFrame.attr('src', frameURL);
+        }
+        mapFrame.toggle();
+        $(this).html($(this).html().toLowerCase() == 'show map' ? 'Hide Map' : 'Show Map');
+      });
+    }
+  });
+</script>
+</body>
+</html>

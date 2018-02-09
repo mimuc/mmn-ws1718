@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Manipulations</title>
+</head>
+<body>
+<div id="output"></div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+    var output = $('#output');
+
+    var stones = ['Mick','Keith','Ronnie', 'Charlie'];
+
+    // TODO create an <ul> element
+    var list = $('<ul>');
+
+    // OPTION 1:
+    stones.forEach(function(stoneMember) {
+      var li = $('<li>');
+      li.html(stoneMember);
+      list.append(li);
+    });
+
+    // OPTION 2:
+    $.each(stones, function(i, stoneMember) {
+
+    });
+
+    // OPTION 3:
+    for (var i = 0; i < stones.length; i++) {
+      var stoneMember = stones[i];
+
+      // siehe oben.
+    }
+
+
+
+    output.append(list);
+    // TODO append everything in the correct order to #output
+
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exif Infos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+  <style>
+    #container {
+      display: flex;
+      flex-direction: column;
+    }
+    input[type=file] {
+      border: none;
+      margin: auto;
+    }
+    #output {
+      white-space: pre;
+      font-family: 'Menlo', 'Consolas', monospace;
+      text-align: left;
+      position: absolute;
+      top: 0;
+      padding: 10px;
+      z-index: 1;
+      background-color: rgba(255,255,255,0.5);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #bottom {
+      position: relative;
+    }
+    #bottom * {
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+<header>EXIF Info</header>
+<div id="container">
+  <input id="file-input" type="file" accept="image/jpeg" />
+  <div id="bottom">
+    <img id="mainImage" src="ci.jpg"/>
+    <div id="output"></div>
+  </div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!--
+  Do not change th next line or you might lose the EXIF JS Library
+-->
+<script src="https://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/exif.js"></script>
+<script>
+
+  var bottomDiv = $('#bottom');
+  var outputDiv = $('#output');
+  var img = $('#mainImage');
+  var urlField = $('#urlField');
+
+  /**
+   * makes an image element (jQuery) from a given file (coming from <input type="file">)
+   * The code can be seen here: https://developer.mozilla.org/de/docs/Zugriff_auf_Dateien_von_Webapplikationen
+   *
+   * @param file read from <input type="file">
+   *
+   * @returns {*|jQuery|HTMLElement} that you can append to any other element.
+   */
+  function makeImgFromFile(file) {
+    var imgEl, reader;
+
+    // allow the developer to pass an entire FileList;
+    if(file instanceof FileList) {
+      file = file[0];
+    }
+    // create the element.
+    imgEl = $('<img>');
+    // if we don't have a file, we should silently return the element.
+    if (!file) return imgEl;
+
+    // we can continue
+    reader = new FileReader();
+    // set the file attribute of the image.
+    imgEl.attr('file', file);
+
+    // we need to wait for the FileReader to load the file
+    // when it is done, it sets the 'src' attribute of the image to display it.
+    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(imgEl.get(0));
+    // start reading the file.
+    reader.readAsDataURL(file);
+
+    return imgEl;
+  }
+
+  // the user can pick another image:
+  $('#file-input').change(function(e) {
+    var img = makeImgFromFile(e.target.files); // create an <img> element from the file
+    bottomDiv.find('img').remove(); // remove the old image
+    bottomDiv.prepend(img); // add the new image.
+    outputDiv.html(''); // reset the output div.
+
+    EXIF.getData(e.target.files[0], function() {
+      // TODO show the exif data on the web page. (the data is accessible with "this")
+    });
+  });
+
+  EXIF.getData(img.get(0), function() {
+    // TODO show the exif data on the web page. (the data is accessible with "this")
+  });
+
+</script>
+</body>
+</html>

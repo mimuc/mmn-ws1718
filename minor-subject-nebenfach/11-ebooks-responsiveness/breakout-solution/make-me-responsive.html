@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Layout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+
+    /* general layout */
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font: 16px Arial, sans-serif;
+    }
+
+    body > * {
+      padding: 10px;
+    }
+
+    header {
+      background-color: #0a3142;
+      color: white;
+      font-size: 20px;
+    }
+
+    div#container {
+      position: relative;
+      display: flex;
+    }
+
+    div#drawer {
+      min-width: 200px;
+      padding: 0 10px;
+    }
+
+
+    div.teaser {
+      display: flex;
+    }
+
+    div.cover {
+      flex: 1;
+      max-width: 50%;
+      padding: 0 10px 0 0;
+    }
+
+    div.cover > img {
+      max-width: 100%;
+    }
+
+    div.short-description {
+      flex: 1;
+    }
+
+    div.article {
+      flex: 0;
+    }
+
+    button.to-top {
+      display: none;
+    }
+
+
+    img#burger {
+      display: none;
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+
+    @keyframes slide-in {
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    @keyframes slide-out {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    /* -----------
+        for a comprehensive list of devices go here:
+        https://css-tricks.com/snippets/css/media-queries-for-standard-devices/
+       -----------
+    */
+
+    /* ----------- iPhone 5 and 5S ----------- */
+
+    /* Portrait and Landscape */
+    @media only screen
+    and (min-device-width: 320px)
+    and (max-device-width: 568px) {
+
+      header {
+        position: fixed;
+        height: 64px;
+        z-index: 1;
+        width: 100%;
+        padding:0;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      header > *{
+        margin: 10px;
+      }
+
+      img#burger {
+        display: block;
+      }
+
+      div#drawer {
+        height: 100%;
+        width: 50%;
+        position: fixed;
+        right: 0;
+        top: 64px;
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: translate(100%);
+      }
+
+      div#drawer.open {
+        animation: slide-in 0.5s forwards;
+      }
+
+      div#drawer.closed {
+        animation: slide-out 0.5s forwards;
+      }
+
+      div#drawer {
+        display: block;
+      }
+
+      div#container {
+        top: 3em;
+      }
+
+      div.teaser {
+        display: block;
+      }
+
+      div.cover {
+        flex: 0;
+        width: 100%;
+        max-width: none;
+      }
+
+      button.to-top {
+        display: block;
+      }
+    }
+
+    /* ----------- iPad  ----------- */
+    /* Portrait and Landscape */
+    @media only screen
+    and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <span>My Page</span>
+  <span class="spacer"></span>
+  <img src="../burger.svg" onclick="toggleMenu()" id="burger">
+</header>
+
+
+<div id="container">
+  <div id="drawer" class="open">
+    <p>Page Uno</p>
+    <p>Page Due</p>
+    <p>Page Tre</p>
+  </div>
+  <div id="content">
+    <h2>My Article</h2>
+    <div class="teaser">
+      <div class="cover">
+        <img src="../ci.jpg">
+      </div>
+      <div class="short-description">Bavaria ipsum dolor sit amet kimmt nia need in da vui huift vui auszutzeln. Hoggd
+        baddscher sammawiedaguad gscheit des is a gmahde Wiesn ma ded Buam Weißwiaschd a Maß und no a Maß owe: San wuid
+        d’ Schorsch, i oa! Ramasuri ma guad oba des is a gmahde Wiesn Sauwedda auf’d Schellnsau des wiad a Mordsgaudi!
+        Schaung kost nix greaßt eich nachad gscheid ham Leonhardifahrt, aasgem mim Woibbadinga jedza. Lewakaas
+        Woibbadinga sauba geh noch da Giasinga Heiwog.
+      </div>
+    </div>
+    <div class="article">
+      <p>
+        Charivari ham kimmt, aba Namidog Enzian Maibam a Hoiwe des is hoid aso moand Radi: Kummd is sog i des is a
+        gmahde Wiesn wos is ma Wuascht hoggd Brezn heitzdog. Sauakraud a bravs Mamalad naa measi gwihss. Schbozal sodala
+        di o’ha Biagadn woaß i hob di narrisch gean boarischer Biakriagal.
+      </p>
+      <p>Woibbadinga wuid eam a geh, an unbandig. Sepp Charivari blärrd trihöleridi dijidiholleri gwiss pfenningguat
+        heitzdog! Brotzeit is des liab zwoa, Gstanzl. Ognudelt geh Stubn Griasnoggalsubbm pfundig, is ma Wuascht.
+        Diandldrahn ognudelt hob i an Suri mi, fensdaln. Schbozal eana blärrd sei Haferl Foidweg von Buam liberalitas
+        Bavariae scheans sauba. So Weiznglasl ned, Biagadn nia need pfiad de a Maß und no a Maß! Bittschön mim weida,
+        von moand etza no a Maß aasgem jo mei hogg di hera? Zidern es zünftig owe Schorsch, lem und lem lossn fias i
+        moan oiwei Schdarmbeaga See jedza? De Marei auf der Oim, da gibt’s koa Sünd um Godds wujn sowos dei Blosmusi,
+        mei Watschnbaam singan sammawiedaguad? Gaudi ja, wo samma denn jo mei!</p>
+      <p>Is Hendl aba midanand Radi: Boarischer hawadere midananda Spotzerl, d’ Charivari samma midanand. Dahoam Brezn
+        nois Schbozal Radi, Bradwurschtsemmal. Baddscher Stubn eam Oachkatzlschwoaf vui huift vui auffi iabaroi, ozapfa
+        sei Maderln auffi! Sauba des muas ma hoid kenna zwoa weida soi Hendl, samma sog i amoi. Obacht i hob di narrisch
+        gean fias Hetschapfah Musi de Sonn wia da Buachbinda Wanninger muass. Milli hob i an Suri kimmt dahoam obandln
+        wo hi damischa Schdeckalfisch a fescha Bua. Ma a Prosit der Gmiadlichkeit samma hoggd no a Maß obacht mi griaß
+        God beinand obandln Enzian a bissal. I mechad dee Schwoanshaxn Kuaschwanz g’hupft wia gsprunga ham ghupft wia
+        gsprunga bittschön mei Hemad des mi. Zwedschgndadschi abfieseln i, wos.</p>
+    </div>
+    <button class="to-top" onclick="toTop()">Go to Top</button>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+
+  function toggleMenu() {
+    var drawer = $('#drawer');
+    drawer.toggleClass('opened closed');
+  }
+
+  function toTop() {
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>

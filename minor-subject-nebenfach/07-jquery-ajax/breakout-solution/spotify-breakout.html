@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Breakout</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <style>
+    input[type=text], input[type=search] {
+      display: block;
+      height: 50px;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid deeppink;
+      border-radius: 5px;
+      color: deeppink;
+      outline: none;
+      margin: 0 0 2em 0;
+      width: 250px;
+      transition: width 0.3s ease-in-out;
+      -webkit-transition: width 0.3s ease-in-out;
+    }
+
+    input[type=text]:focus, input[type=search]:focus {
+      width: 450px;
+    }
+
+    #result {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .artist {
+      flex: 1;
+      max-height: 150px;
+      min-width: 100px;
+      max-width: 150px;
+    }
+
+    .artist img {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<input type="search" id="search" placeholder="Search artist...">
+<div id="result">
+  <!-- this will contain the results from the spotify search.-->
+</div>
+<script>
+  var searchURL = 'http://spotify-proxy-mmn.193b.starter-ca-central-1.openshiftapps.com/search';
+
+  // first select all elements that we are going to need.
+  var result = $('#result');
+  var searchField = $('#search');
+
+  var lastRequest;
+
+  // to the search field, we attach an event listener for the 'input' event
+  searchField.on('input', function() {
+    // read the current value of the search field
+    var query = $(this).val();
+    // only start the query if the value has at least three characters.
+    if (query.length > 2) {
+      searchByArtist(query);
+    }
+  });
+
+  /**
+   * This searches the spotify database for a given artist name
+   * and puts the result into <div id="result">
+   * @param artist
+   */
+  function searchByArtist(artist) {
+    var queryParameters = {
+      q: artist, // use the parameter passed to the function.
+      type: 'artist',
+      limit: 50,
+      key: 'm-ulti-M-EDIA'
+    };
+    // cancel the last request, if there was one.
+    if (lastRequest) {
+      lastRequest.abort();
+    }
+
+    // perform the GET request.
+    lastRequest = $.get(searchURL, queryParameters, function(data) {
+
+      // assert data.artists.items
+      if (data.artists && data.artists.items) {
+
+        // first clear everything inside the result div
+        result.empty();
+
+        // loop through the artists and generate some html for each one.
+        data.artists.items.forEach(function(artist) {
+          // construct a container and a couple of elements
+          var divEl = $('<div>');
+          var aEl = $('<a>');
+          var imgEl = $('<img>');
+
+          // we only want to display those artists who have an image.
+          if (artist.images.length > 0) {
+            // make the link;
+            aEl.attr('href', artist.external_urls.spotify);
+            aEl.attr('target', '_blank');
+            // construct the image;
+            imgEl.attr('src', artist.images[0].url);
+            imgEl.attr('alt', artist.name);
+
+            // add things together;
+            aEl.append(imgEl);
+            divEl.addClass('artist');
+            divEl.append(aEl);
+            result.append(divEl);
+          }
+        });
+      }
+    });
+  }
+</script>
+</body>
+</html>

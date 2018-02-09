@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Manipulations</title>
+</head>
+<body>
+<div id="output"></div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+    var output = $('#output');
+    var stones = ['Mick','Keith','Ronnie', 'Charlie'];
+
+    // TODO create an <ul> elment
+    var ul = $('<ul>');
+    // TODO create an <li> for each member of the stones
+    stones.forEach(function(member) {
+      var li = $('<li>').html(member);
+      ul.append(li);
+
+      // additional homework task:
+      li.on('click', function() {
+        $(this).css('font-size','+=2px');
+      });
+    });
+
+    // TODO append everything in the correct order to #output
+    output.append(ul);
+
+</script>
+</body>
+</html>

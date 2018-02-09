@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Control media playback with javascript</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+  <style>
+    #log {
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+<header><span>Start Playback with JavaScript</span></header>
+<div id="container">
+  <div class="videoWrapper">
+    <video id="videoPlayer" preload="metadata" controls>
+      <source src="http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4" type="video/mp4">
+    </video>
+    <div class="credits">
+      Video "Dev Stories" by Google Inc.
+      (HTML5Rocks.com)
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+  $('video').on('canplay', function() {
+    var videoElement = $('video').get(0);
+    videoElement.play();
+  })
+</script>
+</body>
+</html>

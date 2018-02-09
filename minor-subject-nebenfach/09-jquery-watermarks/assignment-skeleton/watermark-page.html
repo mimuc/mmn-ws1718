@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watermarker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Tobias Seitz">
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+  <style>
+    img {
+      max-width: 100%;
+      display: block;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<header>Watermarker WebPage</header>
+<div id="container">
+  <div class="card">
+    <input type="file" id="fileSelector" accept="image/*">
+  </div>
+  <div class="card">
+    <div id="output">
+      Please select an image file and it will appear here.
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- we should not hot link, but if you must: -->
+<script src="http://baivong.github.io/watermark/javascripts/jquery.watermark.min.js"></script>
+<!--<script src="../lib/watermark.jquery.min.js"></script>-->
+<script>
+  var fileSelector = $('#fileSelector');
+  var outputDiv = $('#output');
+
+
+  /**
+   * makes an image element (jQuery) from a given file (coming from <input type="file">)
+   * The code can be seen here: https://developer.mozilla.org/de/docs/Zugriff_auf_Dateien_von_Webapplikationen
+   *
+   * @param file read from <input type="file">
+   *
+   * @returns {*|jQuery|HTMLElement} that you can append to any other element.
+   */
+  function makeImgFromFile(file) {
+    var imgEl, reader;
+
+    // allow the developer to pass an entire FileList;
+    if(file instanceof FileList) {
+      file = file[0];
+    }
+    // create the element.
+    imgEl = $('<img>');
+    // if we don't have a file, we should silently return the element.
+    if (!file) return imgEl;
+
+    // we can continue
+    reader = new FileReader();
+    // set the file attribute of the image.
+    imgEl.attr('file', file);
+
+    // we need to wait for the FileReader to load the file
+    // when it is done, it sets the 'src' attribute of the image to display it.
+    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(imgEl.get(0));
+    // start reading the file.
+    reader.readAsDataURL(file);
+
+    return imgEl;
+  }
+
+  // when the file selector changes, we need to be informed, so
+  // we attach an event listener for the 'change' event.
+  fileSelector.on('change', function () {
+    var files = this.files;
+    if(files) {
+      var imgEl = makeImgFromFile(files);
+      var addWatermarkButton = $('<button>Add Watermark</button>');
+
+      // TODO a) make the outputDiv empty()
+      // TODO b) append addWatermarkButton and imgEl to the outputDiv
+      // TODO c) add a click event listener to the addWatermarkButton
+      // TODO d) inside the click listener, add a watermark to imgEl
+
+    }
+  });
+</script>
+</body>
+</html>

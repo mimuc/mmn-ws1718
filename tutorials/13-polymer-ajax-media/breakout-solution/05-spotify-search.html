@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Polymer Ajax</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="../bower_components/paper-input/paper-input.html">
+  <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+  <link rel="import" href="../shared-styles.html">
+
+  <style>
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <dom-module id="spotify-search">
+    <template>
+      <style include="shared-styles"></style>
+      <iron-ajax
+          auto="[[ search ]]"
+          url="[[ apiUrl ]]"
+          last-response="{{ response }}"
+          loading="{{ loading }}"
+          params="[[ _makeQueryParams(search) ]]"
+          debounce-duration="300"
+      >
+      </iron-ajax>
+
+      <div class="card">
+        <paper-input type="search" value="{{ search }}" label="Artist"></paper-input>
+      </div>
+
+      <paper-spinner active="[[ loading ]]" hidden$="[[ !loading ]]"></paper-spinner>
+
+      <div class="card" hidden$="[[ loading ]]">
+        <template
+            is="dom-repeat"
+            items="[[ response.artists.items ]]" as="artist">
+
+          <div class="box">
+            <img src="[[ _getLastImage(artist.images) ]]">
+            <span>[[ artist.name ]]</span>
+          </div>
+        </template>
+      </div>
+
+    </template>
+    <script>
+
+    class SpotifySearch extends Polymer.Element {
+      static get is() {return 'spotify-search'}
+      static get properties() {
+          return {
+            search: {
+            type: String
+          },
+          refreshing: {
+            type: Boolean,
+            value: false
+          }
+        }
+      }
+        _getLastImage(images) {
+          if (images && images.length > 0) {
+            return images[images.length - 1].url;
+          } else {
+            return '';
+          }
+        }
+        _makeQueryParams(search) {
+          return {
+            type: 'artist',
+            q: search,
+            key: this.key
+          }
+        }
+        ready() {
+          super.ready();
+          this.apiUrl = 'http://spotify-proxy-mmn.193b.starter-ca-central-1.openshiftapps.com/search';
+          //key is the same as in Tutorial07; will also be provided in the tutorial session.
+          this.key = '';
+        }
+      }
+      window.customElements.define(SpotifySearch.is, SpotifySearch);
+    </script>
+  </dom-module>
+</head>
+<body>
+<header>Spotify Search</header>
+<spotify-search></spotify-search>
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>InputListener</title>
+</head>
+<body>
+<input type="text" id="infield" placeholder="Start typing...">
+<div id="output"></div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+  var input = $('#infield');
+  var output = $('#output');
+
+  input.on('input', function () {
+    var val = $(this).val();
+
+    output.html(val.toUpperCase());
+
+  });
+</script>
+</body>
+</html>

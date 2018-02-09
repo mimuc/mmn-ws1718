@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watermark Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Tobias Seitz">
+  <link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+  <style>
+    #output img {
+      display: block;
+      margin: 16px auto;
+    }
+    .warning {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<header>Watermark Service</header>
+<div id="container">
+  <div class="card">
+    <input type="text" id="urlField" placeholder="Enter Image URL here...">
+    <button id="loadImageButton">Load Image</button>
+  </div>
+
+  <div class="card" id="output">
+    Your image will appear here.
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- we should not hot link, but if you must: -->
+<script src="http://baivong.github.io/watermark/javascripts/jquery.watermark.min.js"></script>
+<!--<script src="../lib/watermark.jquery.min.js"></script>-->
+<!-- TODO ATTENTION. You need to put this file into your XAMPP htdocs directory and open it
+via http://localhost/path/to/this/file/watermark-service.html -->
+<script>
+  var urlField = $('#urlField');
+  var loadButton = $('#loadImageButton');
+  var outputDiv = $('#output');
+  loadButton.click(function () {
+    // TODO your code goes here.
+
+  });
+  // side note / warning: this will create memory leaks.
+  // if you remove the button, its event listener will live on and become a zombie.
+</script>
+</body>
+</html>

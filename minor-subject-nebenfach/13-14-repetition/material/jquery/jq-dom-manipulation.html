@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Creating and Appending Elements</title>
+</head>
+<body>
+<div id="output"></div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+    var output = $('#output');
+    var heading = $('<h2>');
+    var paragraph = $('<p>');
+
+    heading.html('jQuery Example');
+    paragraph.html('This is convenient.');
+
+    output.append(heading);
+    output.append(paragraph);
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQ AJAX</title>
+</head>
+<body>
+<div id="output"></div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+    var output = $('#output');
+    // TODO load thedoors.json
+    
+    $.get('thedoors.json',{},function(data) {
+      var ueberschrift = $('<h1>');
+      ueberschrift.html(data.name);
+
+      var list = $('<ul>');
+      output.append(ueberschrift);
+      output.append(list);
+
+      data.members.forEach(function(someDude) {
+        var memberItem = $('<li>');
+        memberItem.html(someDude);
+        list.append(memberItem);
+      });
+
+    })
+</script>
+</body>
+</html>

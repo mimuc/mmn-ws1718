@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watermark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Tobias Seitz">
+</head>
+<body>
+
+<header>Watermarks</header>
+<div id="container">
+  <img class="private" src="../images/example1.jpg"/>
+  <img class="private" src="../images/example2.jpg"/>
+</div>
+
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- we should not hot link, but if you must: -->
+<!--<script src="http://baivong.github.io/watermark/javascripts/jquery.watermark.min.js"></script>-->
+<script src="../lib/watermark.jquery.min.js"></script>
+
+<script>
+  var images = $('.private');
+  images.watermark({
+    path : '../images/mmn.png',
+    opacity: 0.8
+  });
+</script>
+</body>
+</html>

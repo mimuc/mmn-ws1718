@@ -1,0 +1,7 @@
+Screen scraping is the process of getting information by parsing html code from another website. It is used e.g.
+by flight booking portals, price comparision portals to get information from other pages. Screen scraping is used
+as the last option if no API does exist, because using an API is much easier: Parsing HTML code is not so easy because
+each website does have another HTML structure that needs to be parsed differently. Another problem is that the HTML
+structure of the scraped pages could change and then the scraping algorithm does not work anymore.
+Screen Scraping can be prohibited by the web page's owner because it's intellectual property. Before doing screen scraping
+the websites must be checked if you may do it.

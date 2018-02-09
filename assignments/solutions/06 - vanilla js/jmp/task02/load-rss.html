@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS Ticker</title>
+    <link rel="stylesheet" href="load-rss.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+        var logoPlay = '►';
+        var logoStop = '■';
+        var started = false;
+
+        var intervalID = 0;
+        var popularFeeds = [
+            // 'http://feeds.feedburner.com/lifehacker', can not be loaded!
+            'https://www.technologyreview.com/stories.rss',
+            'http://feeds.feedburner.com/Techcrunch/europe',
+            'http://feeds.feedburner.com/HowToGeek'
+        ];
+
+        window.addEventListener('DOMContentLoaded', function () {
+            var playButton = document.getElementsByClassName("playButton")[0];
+            playButton.addEventListener("click", onPlayButtonClick);
+
+            var playButton2 = document.getElementsByClassName("playButton")[1];
+            playButton2.addEventListener("click", onPlayButtonClick);
+        });
+
+        function onPlayButtonClick() {
+            if (started) {
+                window.clearInterval(intervalID);
+                this.innerText = logoPlay;
+                started = false;
+            } else {
+                intervalID = window.setInterval(function () {
+                    updateFeed();
+                }, 60000);
+                started = true;
+                this.innerText = logoStop;
+                updateFeed();
+            }
+        }
+
+        function updateFeed() {
+            var playButton = document.getElementsByClassName("playButton")[0];
+            playButton.innerText = logoStop;
+            var random = Math.floor(Math.random() * 10 % popularFeeds.length);
+
+            var content = document.getElementById("content");
+            for (var i = 0; i < content.getElementsByClassName("article").length; i++) {
+                var article = content.getElementsByClassName("article")[i];
+                content.removeChild(article);
+            }
+
+            var progress = document.getElementsByClassName("progress")[0];
+            progress.setAttribute("style", "display: inherit;");
+            progress.innerText = "Loading 0%";
+
+            var xmlRequest = new XMLHttpRequest();
+            xmlRequest.open("GET", "http://localhost/xml-proxy.php?url=" + popularFeeds[random]);
+
+            xmlRequest.onload = function (data) {
+                console.log(data);
+                if (data.target.response) {
+                    var response = data.target.response;
+                    var json = JSON.parse(response);
+
+                    updateView(json);
+                }
+            };
+            xmlRequest.onerror = function (ev) {
+                console.error(ev.error);
+            };
+
+            xmlRequest.send();
+        }
+
+        function updateView(json) {
+            var progress = document.getElementsByClassName("progress")[0];
+            progress.setAttribute("style", "display:none;");
+
+            var content = document.getElementById("content");
+            var currentSource = document.getElementsByClassName("currentSource")[0];
+
+            if (json) {
+                console.log(json);
+                currentSource.innerText = json.channel.title;
+
+                for (var i = 0; i < json.channel.item.length; i++) {
+                    var item = json.channel.item[i];
+                    console.log(json.channel.item[i]);
+                    var article = document.getElementById("template").cloneNode(true);
+                    article.removeAttribute("id");
+                    article.getElementsByClassName("title")[0].innerText = item.title;
+                    article.getElementsByClassName("more")[0].setAttribute("src", item.link);
+
+                    if (item.description && typeof item.description === "string") {
+                        article.getElementsByClassName("description")[0].innerHTML = item.description;
+                    }
+                    content.appendChild(article);
+                }
+            } else {
+                console.error("json is empty!");
+            }
+        }
+    </script>
+
+</head>
+<body>
+<header>
+    <span class="appName">RSS Ticker</span>
+    <div class="currentSource"></div>
+    <button class="playButton">►</button>
+</header>
+
+<div id="content">
+    <div class="progress">
+        <button class="playButton">►</button>
+    </div>
+</div>
+<div id="template" class="article">
+    <h2 class="title"></h2>
+    <p class="description"></p>
+    <a href="" class="more">Continue reading...</a>
+</div>
+</body>
+</html>

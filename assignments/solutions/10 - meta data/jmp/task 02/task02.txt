@@ -1,0 +1,9 @@
+a) Yes, because analog media is describable the same as other media. In this case, MPEG-7 would be used to describe analog media that
+   is located anywhere (e.g. over the internet).
+
+b) MPEG-7 uses the BiM Code to compress its data that allows to compress the data on average 98%. The which compression is
+   better can't be answered directly, because the MPEG-4 format supports many different codecs with different compression levels.
+
+c) - For now there is too few progress in the development of software that supports automatic creation  MPEG-7 descriptions.
+   - Software programs does not support all capabilities of MPEG-7
+   - Too much overhead. (High level descriptors have to be created by humans manually).

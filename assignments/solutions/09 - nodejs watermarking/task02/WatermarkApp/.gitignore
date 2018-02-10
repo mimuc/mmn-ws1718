@@ -1,0 +1,4 @@
+watermarks/*.png
+watermarks/*.jpg
+/node_modules/
+/stegano/watermarked/*.png

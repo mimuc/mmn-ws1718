@@ -1,0 +1,20 @@
+a) user generated data, rich internet applications, web browser as application platform
+
+b) Pro:
+        - In those days modern web applications and mobile apps are preferred to normal desktop applications
+
+        - E.g. facebook, google (Google Docs), youtube, wordpress allow the users to create their own content without
+          the need of programming skills
+
+        - In general the popularity of facebook shows that Web 2.0 is state of the art because the users want one platform
+          with centralized information that meet their interests.
+
+   Contra:
+        - Using internet platforms mobile and desktop won't be enough to to interact with digital elements. I think in the
+          future Virtual Reality and Augmented Reality will have a greater role to play.
+
+        - Actually we don't know if people use smartphones, wearables and apps as much as they do in those days.
+          Perhaps in the future people will use the web less than today.
+
+        - Later, Artificial Intelligence could replace the user generated data completely and could change the way how the web
+          makes progress.

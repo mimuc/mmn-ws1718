@@ -1,0 +1,13 @@
+// Notice: The URL in the PDF did not work. The URL was found via Google search:
+// https://www.theverge.com/2015/1/27/7926001/youtube-drops-flash-for-html5-video-default
+
+a) Because HTML 5 is used by smart TVs and other Streaming Devices like PS4, XBox, Chromecast.
+
+b) ABR reduces buffering because it allows to change the resolution for viewers based on network quality.
+   The fewer the resolution of receiving frames the faster the transmission => efficient
+
+c) Because it does reduce the loading time when watching a streaming video.
+
+d) Networks with high traffic ?
+
+e) DASH is used by Adobe Flash which was replaced with HTML 5 Player. ?

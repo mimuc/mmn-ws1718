@@ -1,2 +1,3 @@
 watermarks/*.png
 watermarks/*.jpg
+/node_modules/
